@@ -14,6 +14,7 @@ require_relative "prompt/enum_list"
 require_relative "prompt/keypress"
 require_relative "prompt/list"
 require_relative "prompt/multi_list"
+require_relative "prompt/ordered_multi_list"
 require_relative "prompt/multiline"
 require_relative "prompt/mask_question"
 require_relative "prompt/question"
@@ -304,6 +305,26 @@ module TTY
     # @api public
     def multi_select(question, *args, &block)
       invoke_select(MultiList, question, *args, &block)
+    end
+
+    # Ask a question with multiple attributes activated in a specific order
+    #
+    # @example
+    #   prompt = TTY::Prompt.new
+    #   choices = %w(Scorpion Jax Kitana Baraka Jade)
+    #   prompt.ordered_multi_select("Choose your destiny?", choices)
+    #
+    # @param [String] question
+    #   the question to ask
+    #
+    # @param [Array[Object]] choices
+    #   the choices to select from
+    #
+    # @return [String]
+    #
+    # @api public
+    def ordered_multi_select(question, *args, &block)
+      invoke_select(OrderedMultiList, question, *args, &block)
     end
 
     # Ask a question with indexed list
